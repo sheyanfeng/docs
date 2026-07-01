@@ -1,0 +1,103 @@
+---
+title: "模型与定价总览"
+description: "Momoapi 平台已上架的全部模型清单与定价"
+---
+
+> ## Documentation Index
+>
+> Fetch the complete documentation index at: [https://docs.momoapi.top/llms.txt](https://docs.momoapi.top/llms.txt) Use this file to discover all available pages before exploring further.
+
+# 模型与定价总览
+
+> Momoapi 平台已上架的全部模型清单与定价
+
+Momoapi 平台已上架多家厂商的主流 LLM 模型。下表是完整清单,点击各厂商页面查看详细说明。
+
+## 文本对话模型
+
+### Grok(xAI)
+
+| 模型 | 定位 | 详情 |
+| --- | --- | --- |
+| `grok-3-mini-fast` | 极速省钱 | [Grok](/models/grok) |
+| `grok-3-mini` | 轻量平衡 | [Grok](/models/grok) |
+| `grok-4.3` | **当前旗舰** | [Grok](/models/grok) |
+| `grok-build-0.1` | 工具/Agent 向 | [Grok](/models/grok) |
+
+### GPT(OpenAI)
+
+| 模型 | 定位 | 详情 |
+| --- | --- | --- |
+| `gpt-5.5` | **GPT 旗舰** | [GPT](/models/gpt) |
+| `gpt-5.5-plus` | 旗舰增强版 | [GPT](/models/gpt) |
+| `gpt-5.4` | 主力通用 | [GPT](/models/gpt) |
+| `gpt-5.4-plus` | 主力增强版 | [GPT](/models/gpt) |
+| `gpt-5.4-mini` | 精简快速 | [GPT](/models/gpt) |
+| `codex-auto-review` | 代码自动审查(工具) | [GPT](/models/gpt) |
+
+### Claude(Anthropic)
+
+| 模型 | 定位 | 详情 |
+| --- | --- | --- |
+| `claude-opus-4-8` | **最新旗舰** | [Claude](/models/claude) |
+| `claude-opus-4-7` | Opus 系列 | [Claude](/models/claude) |
+| `claude-opus-4-6` | Opus 系列 | [Claude](/models/claude) |
+
+### GLM(智谱)
+
+| 模型 | 定位 | 详情 |
+| --- | --- | --- |
+| `glm-5.2` | **最新旗舰** | [GLM](/models/glm) |
+| `glm-4.7` | 主力通用 | [GLM](/models/glm) |
+
+## 图片与视频生成
+
+| 模型 | 类型 | 计费 | 详情 |
+| --- | --- | --- | --- |
+| `grok-imagine-image` | 文生图(标准) | \$0.02 / 张 | [媒体生成](/models/media) |
+| `grok-imagine-image-quality` | 文生图(高清) | \$0.05 / 张 | [媒体生成](/models/media) |
+| `grok-imagine-video` | 文生视频 | \$0.07 / 秒 | [媒体生成](/models/media) |
+| `gpt-image-2` | 文生图 | 见控制台 | [媒体生成](/models/media) |
+
+## 怎么选模型
+
+### 按需求选
+
+| 你的需求 | 推荐模型 | 理由 |
+| --- | --- | --- |
+| 日常对话、省钱跑量 | `grok-3-mini-fast` / `gpt-5.4-mini` | 又快又便宜 |
+| 复杂推理、数学、算法 | `gpt-5.5` | 推理能力强 |
+| 编程写代码 | `gpt-5.5` / `claude-opus-4-8` | 代码能力顶级 |
+| 长文档分析 | `claude-opus-4-8` | 长上下文王者 |
+| 中文场景 / 国产模型 | `glm-5.2` | 中文优势明显 |
+| 生产环境 / 重度使用 | `gpt-5.4-plus` / `gpt-5.5-plus` | 配额高、高峰稳 |
+| 生图 | `grok-imagine-image-quality` | 高质量图片 |
+| 生视频 | `grok-imagine-video` | 唯一视频选项 |
+
+### 按成本选(从低到高)
+
+```text
+便宜 ◀────────────────────────────▶ 贵
+grok-3-mini-fast  gpt-5.4-mini  glm-4.7
+grok-3-mini  gpt-5.4  glm-5.2
+grok-4.3  gpt-5.5  claude-opus-4-8  (旗舰,贵)
+```
+
+## 定价机制
+
+Momoapi 的计费分两类:
+
+**按量计费(Token 计费)**:大多数对话模型。费用 = 输入 token \+ 输出 token × 输出倍率。控制台「定价」页面可查看每个模型的倍率。
+
+**按次计费(固定价格)**:图片按张、视频按秒计费,与 token 无关。
+
+| 模型 | 计费方式 | 单价 |
+| --- | --- | --- |
+| `grok-imagine-image` | 按张 | \$0.02 / 张 |
+| `grok-imagine-image-quality` | 按张 | \$0.05 / 张 |
+| `grok-imagine-video` | 按秒 | \$0.07 / 秒 |
+| 其他对话模型 | 按 token | 见控制台定价页 |
+
+<Note>
+  实际扣费还会乘以你所在**分组**的倍率:Gpt 组 3 折、Claude 组 4 折、Grok 组 5 折、Glm 组原价。最终价格以控制台显示为准。
+</Note>

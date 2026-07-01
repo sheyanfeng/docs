@@ -1,0 +1,97 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Momo docs",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "index",
+              "getting-started",
+              "why-choose-us",
+              "getting-token",
+              "support"
+            ]
+          },
+          {
+            "group": "AI 工具教程",
+            "pages": [
+              "ai-tools/claude-codex-guide"
+            ],
+            "hidden": true
+          },
+          {
+            "group": "模型文档",
+            "pages": [
+              "models/overview",
+              "models/grok",
+              "models/gpt",
+              "models/claude",
+              "models/glm",
+              "models/media"
+            ]
+          },
+          {
+            "group": "命令行工具配置",
+            "pages": [
+              "cli-config/env-check",
+              "cli-config/claude-code",
+              "cli-config/codex"
+            ]
+          },
+          {
+            "group": "CC Switch 配置",
+            "pages": [
+              "cc-switch-config/introduction",
+              "cc-switch-config/claude-code",
+              "cc-switch-config/codex"
+            ]
+          },
+          {
+            "group": "账户管理",
+            "pages": [
+              "account/register",
+              "account/login",
+              "account/password",
+              "troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [],
+    "primary": {
+      "type": "button",
+      "label": "控制台",
+      "href": "https://momoapi.top/console"
+    }
+  },
+  "contextual": {
+    "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
+  },
+  "footer": {
+    "socials": {
+    }
+  }
+}

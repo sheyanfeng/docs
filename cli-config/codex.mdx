@@ -1,0 +1,70 @@
+---
+title: "Codex 配置"
+description: "Momoapi 平台文档"
+---
+
+> ## Documentation Index
+>
+> Fetch the complete documentation index at: [https://docs.momoapi.top/llms.txt](https://docs.momoapi.top/llms.txt) Use this file to discover all available pages before exploring further.
+
+# Codex 配置
+
+Codex CLI 使用 OpenAI 兼容接口，因此 Momoapi 地址需要追加 `/v1`。
+
+配置目录：
+
+| 系统 | 配置目录 |
+| --- | --- |
+| Windows | `%USERPROFILE%\.codex` |
+| macOS / Linux | `~/.codex` |
+
+如果 `.codex` 目录不存在，请先创建目录。
+
+创建或编辑 `config.toml`：
+
+```toml
+model_provider = "Momoapi"
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+network_access = "enabled"
+disable_response_storage = true
+model_verbosity = "high"
+
+[model_providers.Momoapi]
+name = "Momoapi"
+base_url = "https://momoapi.top/v1"
+wire_api = "responses"
+requires_openai_auth = true
+```
+
+创建或编辑 `auth.json`：
+
+```json
+{
+  "OPENAI_API_KEY": "sk-你的Codex分组APIKey"
+}
+```
+
+配置说明：
+
+| 字段 | 说明 |
+| --- | --- |
+| `model_provider` | 当前使用的供应商名称，需要与 `[model_providers.Momoapi]` 对应 |
+| `model` | 默认模型，请按 Momoapi 控制台实际可用模型调整 |
+| `base_url` | OpenAI 兼容接口地址，必须使用 `/v1` |
+| `wire_api` | Codex 请求协议，建议使用 `responses` |
+| `requires_openai_auth` | 使用 `OPENAI_API_KEY` 做鉴权 |
+
+保存后重启终端，在项目目录运行：
+
+```bash
+codex
+```
+
+如果 Codex 无法正常启动或请求失败，请按顺序检查：
+
+1. `config.toml` 是否位于 `.codex` 目录。
+2. `auth.json` 是否位于同一个 `.codex` 目录。
+3. `base_url` 是否为 `https://momoapi.top/v1`。
+4. `OPENAI_API_KEY` 是否属于 Codex 分组。
+5. `model` 是否为 Momoapi 控制台实际可用模型。

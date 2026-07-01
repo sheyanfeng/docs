@@ -1,0 +1,66 @@
+---
+title: "常见问题排查"
+description: "快速检查 Base URL、环境变量、权限和请求超时等常见问题。"
+---
+
+### Base URL 是否写错
+
+最常见错误是 `/v1` 使用位置不对：
+
+| 工具 | 正确写法 |
+| --- | --- |
+| Claude Code | `https://momoapi.top` |
+| Codex | `https://momoapi.top/v1` |
+| OpenAI SDK | `https://momoapi.top/v1` |
+
+### 环境变量修改后仍不生效
+
+按顺序检查：
+
+1. 修改后是否重新打开终端。
+2. 当前终端是否能读取到变量。
+3. 配置文件是否在正确目录。
+4. JSON 或 TOML 是否格式合法。
+5. API Key 是否属于当前工具对应的分组。
+
+Windows PowerShell 可检查：
+
+```powershell
+echo $env:ANTHROPIC_AUTH_TOKEN
+echo $env:OPENAI_API_KEY
+```
+
+macOS / Linux 可检查：
+
+```bash
+echo "$ANTHROPIC_AUTH_TOKEN"
+echo "$OPENAI_API_KEY"
+```
+
+### PowerShell 执行策略报错
+
+如果 Windows 执行脚本被拦截，可在 PowerShell 中执行：
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+执行后关闭并重新打开终端。
+
+### npm 全局安装权限报错
+
+如果出现 `permission denied` 或无权限写入全局目录：
+
+- Windows：用管理员身份打开 PowerShell 后重试。
+- macOS / Linux：优先修复 npm 全局目录权限，避免长期使用 `sudo npm install -g`。
+- 也可以使用 `nvm` 管理 Node.js，减少全局权限问题。
+
+### 请求超时或速度异常
+
+建议检查：
+
+1. 当前 Key 是否还有额度。
+2. 模型名称是否在控制台可用。
+3. 是否使用了正确的 Base URL。
+4. 是否开启了代理、VPN 或系统网络过滤。
+5. 长任务可适当提高超时时间，例如 Claude Code 的 `API_TIMEOUT_MS`。

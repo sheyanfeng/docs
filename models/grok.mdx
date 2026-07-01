@@ -1,0 +1,98 @@
+---
+title: "Grok 系列模型"
+description: "xAI Grok 系列模型的使用说明与选型指南"
+---
+
+> ## Documentation Index
+>
+> Fetch the complete documentation index at: [https://docs.momoapi.top/llms.txt](https://docs.momoapi.top/llms.txt) Use this file to discover all available pages before exploring further.
+
+# Grok 系列模型
+
+> xAI Grok 系列模型的使用说明与选型指南
+
+Grok 是 xAI 推出的主流大模型系列。Momoapi 已上架 Grok 的核心文本模型与图片/视频生成模型。
+
+## 已上架模型
+
+| 模型 | 类型 | 定位 |
+| --- | --- | --- |
+| `grok-3-mini-fast` | 文本 | 极速省钱 |
+| `grok-3-mini` | 文本 | 轻量平衡 |
+| `grok-4.3` | 文本 | **当前旗舰** |
+| `grok-build-0.1` | 文本 | 工具/Agent 向 |
+| `grok-imagine-image` | 图片 | 标准文生图 |
+| `grok-imagine-image-quality` | 图片 | 高清文生图 |
+| `grok-imagine-video` | 视频 | 文生视频 |
+
+> 图片和视频模型的使用见 [媒体生成](/models/media)。
+
+## 文本模型详解
+
+### `grok-3-mini-fast` ⚡
+
+Grok-3 系列最快最便宜的版本,响应速度极快。
+
+- **适合**:简单问答、高频调用、实时聊天、对延迟敏感的场景
+- **不适合**:复杂推理、长文生成
+
+### `grok-3-mini` ⚖️
+
+Grok-3 的精简标准版,在速度和质量间取平衡。
+
+- **适合**:日常对话、客服、一般任务
+- **不适合**:高难度任务
+
+### `grok-4.3` 👑
+
+**Grok 当前最强模型**,xAI 旗舰。综合能力最强,推理、编码、多模态俱佳,对标 GPT-5 / Claude Opus。
+
+- **适合**:复杂任务、重要决策、代码、分析、需要最佳质量
+- **缺点**:贵、较慢
+
+### `grok-build-0.1` 🔧
+
+专为 **agentic 和 function calling(工具调用)** 优化的模型,擅长理解工具、执行步骤、多轮规划。
+
+- **适合**:AI 助手、自动化工作流、调用 API/工具的场景、Cursor/Claude Code 类应用
+
+## 调用示例
+
+### 基础对话
+
+```bash
+curl https://momoapi.top/v1/chat/completions \
+  -H "Authorization: Bearer sk-你的Token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "grok-4.3",
+    "messages": [{"role": "user", "content": "用三句话介绍一下量子计算"}],
+    "stream": false
+  }'
+```
+
+### 用 OpenAI SDK 调用
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk-你的Token",
+    base_url="https://momoapi.top/v1"
+)
+
+response = client.chat.completions.create(
+    model="grok-3-mini-fast",
+    messages=[{"role": "user", "content": "你好"}]
+)
+print(response.choices[0].message.content)
+```
+
+## 选型建议
+
+| 场景 | 推荐 |
+| --- | --- |
+| 最快最省钱 | `grok-3-mini-fast` |
+| 日常平衡 | `grok-3-mini` |
+| 最高质量 / 复杂任务 | `grok-4.3` |
+| 做 AI Agent / 工具调用 | `grok-build-0.1` |

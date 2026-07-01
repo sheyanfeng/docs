@@ -1,0 +1,114 @@
+---
+title: "快速开始"
+---
+
+# 快速开始
+
+> 按照下面 5 步完成账号、Token、CC Switch 和 Codex 桌面版配置。
+
+本页适合第一次使用 Momoapi 的新手。你只需要先准备好账号和 Token，再把 Token 一键导入到 CC Switch，最后用管理员身份启动 Codex 桌面版即可。
+
+## 开始前先安装
+
+- 安装 CC-Switch：[点击下载](https://momoapi.oss-cn-hongkong.aliyuncs.com/tools/CC-Switch-v3.16.3-Windows.msi)
+- 安装 Codex 桌面版：[点击下载](https://momoapi.oss-cn-hongkong.aliyuncs.com/tools/Codex%20Installer.exe)
+- 如需使用 Claude，也可以安装 Claude 桌面版：[点击下载](https://momoapi.oss-cn-hongkong.aliyuncs.com/tools/Claude%20Setup.exe)
+
+## 第一步：注册并登录
+
+1. 打开 [Momoapi 控制台](https://momoapi.top/console)。
+2. 注册账号并登录。
+3. 如果已经购买套餐或拿到兑换码，先进入充值或兑换入口完成额度绑定。
+
+更多账号说明可查看：
+
+- [注册](/account/register)
+- [登录](/account/login)
+- [获取 Token](/getting-token)
+
+## 第二步：充值、兑换或购买套餐
+
+常见方式有三种：
+
+| 方式 | 适合用户 | 操作入口 |
+| --- | --- | --- |
+| CDK 兑换 | 已通过发卡网获得兑换码 | 控制台的兑换/充值入口 |
+| 余额充值 | 需要按量使用 API | Momoapi 控制台充值入口 |
+| 套餐购买 | 需要固定套餐或 Sub 服务 | [sub.momoapi.top](https://sub.momoapi.top/login) |
+
+充值完成后，回到控制台确认余额、套餐或 Token 额度已经到账。如未到账，请联系 vx 751895625。
+
+## 第三步：获取 Token
+
+1. 访问 [Momoapi 控制台](https://momoapi.top/console)，注册并登录账号。
+2. 进入「令牌管理」页面，点击「添加令牌」或「创建新 Token」。
+3. 复制以 `sk-` 开头的 Token，并妥善保存。
+
+<Note>
+  Token 只展示一次，请不要公开分享给他人。
+</Note>
+
+## 第四步：配置 CC Switch 和 Codex
+
+1. 打开 CC Switch。
+2. 新增渠道，填写 Base URL 和 Token。
+3. Base URL 使用：`https://momoapi.top`。
+4. 选择需要使用的模型渠道。
+5. 保存配置。
+
+## 第五步：用管理员身份打开 Codex 桌面版
+
+1. 在 Windows 开始菜单或桌面找到 Codex。
+2. 右键点击 Codex，选择「以管理员身份运行」。
+3. Codex 启动后，就会使用 CC Switch 当前选中的渠道。
+
+> 注意：每次切换 CC Switch 渠道后，都需要先在任务管理器里结束 Codex 进程，然后重新以管理员身份打开 Codex。否则 Codex 可能还在使用旧渠道。
+
+## 可选：确认连接信息
+
+如果你还需要手动配置 API 客户端，常用参数如下：
+
+| 参数 | 值 |
+| --- | --- |
+| Base URL | [https://momoapi.top](https://momoapi.top) |
+| API Key | 你的 Token（sk-xxx） |
+
+## 可选：发起一次 API 测试
+
+### 方式一：用 curl 测试
+
+```bash
+curl https://momoapi.top/v1/chat/completions \
+  -H "Authorization: Bearer sk-你的Token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "grok-3-mini-fast",
+    "messages": [{"role": "user", "content": "你好"}],
+    "stream": false
+  }'
+```
+
+如果返回 JSON 且包含 choices 字段，说明配置成功。
+
+### 方式二：用 Python（OpenAI SDK）
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="sk-你的Token",
+    base_url="https://momoapi.top/v1"
+)
+
+response = client.chat.completions.create(
+    model="grok-3-mini-fast",
+    messages=[{"role": "user", "content": "你好"}]
+)
+print(response.choices[0].message.content)
+```
+
+## 下一步
+
+- [模型与定价](/models/overview)：了解所有可用模型
+- [客户端配置](/cli-config/env-check)：配置 Claude Code / Codex
+- [账户管理](/account/register)：充值、查看用量
