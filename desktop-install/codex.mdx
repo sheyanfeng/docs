@@ -1,0 +1,128 @@
+---
+title: "codex"
+---
+
+# Codex桌面版安装
+
+Codex Desktop 是 OpenAI 推出的桌面端 AI 编程工具，适合用图形界面管理代码任务、查看修改结果，并在本地项目中运行 AI Agent。
+
+本页介绍如何安装 Codex Desktop，并接入 [MomoAPI](https://docs.momoapi.top) 的 API Key。
+
+## 一、安装 Codex Desktop
+
+### Windows
+
+1. 打开 Microsoft Store 页面：[Codex Desktop Windows 版](https://apps.microsoft.com/detail/9plm9xgg6vks)。
+2. 点击「获取」或「下载」。
+3. 按提示完成安装。
+
+如果商店下载不方便，也可以使用站内快速开始页提供的安装包入口。
+
+### macOS
+
+1. 打开 App Store。
+2. 搜索 `Codex`。
+3. 安装 Codex Desktop。
+
+## 二、切换中文界面
+
+1. 打开 Codex Desktop。
+2. 点击 `File` -\> `Settings`。
+3. 进入 `General`。
+4. 在 `Language for the app UI` 中选择 `Chinese (China)`。
+5. 如果没有立即生效，请保持网络畅通并重启 Codex Desktop。
+
+## 三、获取 MomoAPI Token
+
+1. 打开 [MomoAPI 文档](https://docs.momoapi.top)，点击页面右上角「控制台」。
+2. 登录后进入「令牌管理」页面。
+3. 创建或复制一个可用于 Codex 的 API Key，格式通常以 `sk-` 开头。
+
+<Warning>
+  API Key 只在创建时完整显示一次，请立即保存，不要公开分享，也不要提交到代码仓库。
+</Warning>
+
+## 四、创建 Codex 配置目录
+
+Codex Desktop 会读取用户目录下的 `.codex` 配置。
+
+| 系统 | 配置目录 |
+| --- | --- |
+| Windows | `C:\Users\<你的用户名>\.codex` |
+| macOS | `/Users/<你的用户名>/.codex` |
+
+如果 `.codex` 目录不存在，请先手动创建。
+
+在 `.codex` 目录中创建两个文件：
+
+- `auth.json`
+- `config.toml`
+
+## 五、编辑 auth.json
+
+将以下内容写入 `auth.json`，把 `sk-xxx` 替换为你的 MomoAPI Token：
+
+```json
+{
+  "OPENAI_API_KEY": "sk-xxx"
+}
+```
+
+## 六、编辑 config.toml
+
+将以下内容写入 `config.toml`：
+
+```toml
+model_provider = "Momoapi"
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+network_access = "enabled"
+disable_response_storage = true
+model_verbosity = "high"
+preferred_auth_method = "apikey"
+
+[model_providers.Momoapi]
+name = "Momoapi"
+base_url = "https://momoapi.top/v1"
+wire_api = "responses"
+requires_openai_auth = true
+```
+
+配置说明：
+
+| 字段 | 说明 |
+| --- | --- |
+| `model_provider` | 当前供应商名称，需要与 `[model_providers.Momoapi]` 保持一致 |
+| `model` | 默认模型，请按 MomoAPI 控制台实际可用模型调整 |
+| `base_url` | Codex 使用 OpenAI 兼容接口，必须使用 `https://momoapi.top/v1` |
+| `wire_api` | Codex 请求协议，建议使用 `responses` |
+| `requires_openai_auth` | 使用 `OPENAI_API_KEY` 做鉴权 |
+
+## 七、启动并验证
+
+1. 完全退出 Codex Desktop。
+2. 重新打开 Codex Desktop。
+3. 选择一个本地项目，输入一句简单测试，例如 `hello`。
+4. 如果能正常回复，说明配置成功。
+
+如果 Codex Desktop 没有读取到配置，可以在设置中手动指定 `config.toml` 路径，或确认当前用户目录是否正确。
+
+## 八、常见问题
+
+### 请求失败或模型不可用
+
+请检查：
+
+1. `auth.json` 是否位于 `.codex` 目录。
+2. `config.toml` 是否位于同一个 `.codex` 目录。
+3. `base_url` 是否为 `https://momoapi.top/v1`。
+4. API Key 是否属于 Codex 可用分组。
+5. `model` 是否为 MomoAPI 控制台实际支持的模型。
+
+### 中文界面没有生效
+
+请保持网络畅通后重启 Codex Desktop。如果语言包仍未加载，可以先使用英文界面完成配置。
+
+### 配置修改后仍然走旧渠道
+
+请完全退出 Codex Desktop 后重新打开，必要时检查是否同时存在多个 `.codex` 目录或多个配置文件。

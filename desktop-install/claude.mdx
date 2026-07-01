@@ -1,0 +1,111 @@
+---
+title: "claude"
+---
+
+# Claude桌面版安装
+
+Claude Desktop 支持在开发者模式中配置第三方推理服务。配置完成后，你可以使用 [MomoAPI](https://docs.momoapi.top) 的 API Key 调用支持的 Claude/Anthropic 协议模型。
+
+## 一、准备工作
+
+开始前请准备：
+
+- Claude Desktop 安装包
+- MomoAPI API Key，通常以 `sk-` 开头
+- 一个 MomoAPI 支持的 Claude 模型 ID
+
+## 二、下载安装 Claude Desktop
+
+1. 打开 Claude 官方下载页：[https://claude.com/download](https://claude.com/download)。
+2. 根据系统选择对应版本。
+3. 安装完成后先正常启动一次，确认软件可以打开。
+
+如果官方下载不方便，也可以使用站内快速开始页提供的 Claude 桌面版安装包入口。
+
+## 三、获取 MomoAPI Token
+
+1. 打开 [MomoAPI 文档](https://docs.momoapi.top)，点击页面右上角「控制台」。
+2. 登录后进入「令牌管理」页面。
+3. 创建或复制一个可用于 Claude 的 API Key。
+
+<Warning>
+  请妥善保存 API Key，不要把它提交到代码仓库，也不要发送给他人。
+</Warning>
+
+## 四、开启开发者模式
+
+1. 打开 Claude Desktop。
+2. 在顶部菜单栏依次点击 `Help` -\> `Troubleshooting`。
+3. 点击 `Enable developer mode`。
+4. Claude Desktop 会自动重启。
+
+## 五、打开第三方推理配置
+
+重启后，顶部菜单会出现 `Developer` 选项。
+
+点击：
+
+```text
+Developer -> Configure Third-Party Inference
+```
+
+随后会打开第三方 API 配置面板。
+
+## 六、填写 MomoAPI 配置
+
+在配置面板中填写：
+
+Gateway base URL:
+
+```text
+https://momoapi.top
+```
+
+Gateway API key:
+
+```text
+sk-xxx
+```
+
+把 `sk-xxx` 替换为你自己的 MomoAPI Token。Claude/Anthropic 协议接口不要在地址后追加 `/v1`。
+
+## 七、添加模型 ID
+
+1. 找到 `Model list` 区域。
+2. 点击 `+ Add`。
+3. 填入 MomoAPI 支持的 Claude 模型 ID，例如：
+
+```text
+claude-opus-4-7
+```
+
+如果控制台或模型文档中展示了其他 Claude 模型，请以实际可用模型为准。
+
+4. 点击 `Apply locally`。
+5. 完全退出并重新打开 Claude Desktop。
+
+## 八、验证配置
+
+重启后进入聊天界面，在模型选择位置检查是否能看到刚添加的模型 ID。
+
+如果模型出现并能正常回复，说明 Claude Desktop 已成功接入 MomoAPI。
+
+## 九、常见问题
+
+### 找不到 Developer 菜单
+
+请确认已经在 `Help` -\> `Troubleshooting` 中开启开发者模式，并等待 Claude Desktop 自动重启。
+
+### 填写后模型不出现
+
+请检查：
+
+1. Gateway base URL 是否为 `https://momoapi.top`。
+2. Gateway API key 是否填写完整。
+3. 模型 ID 是否与 MomoAPI 实际支持的模型一致。
+4. 是否点击了 `Apply locally`。
+5. 是否完全退出并重新打开 Claude Desktop。
+
+### 请求失败或无响应
+
+请先到 MomoAPI 控制台确认 Token 额度、分组权限和模型可用性，再重新测试。

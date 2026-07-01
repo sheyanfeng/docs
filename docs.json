@@ -31,6 +31,13 @@
             "hidden": true
           },
           {
+            "group": "桌面端安装",
+            "pages": [
+              "desktop-install/codex",
+              "desktop-install/claude"
+            ]
+          },
+          {
             "group": "模型文档",
             "pages": [
               "models/overview",
