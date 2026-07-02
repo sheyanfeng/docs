@@ -1,13 +1,13 @@
 ---
 title: "Codex桌面版安装"
-description: "安装 Codex Desktop，并使用 MomoAPI 配置 API Key 和模型"
+description: "安装 Codex Desktop，并使用 MomoAPI 配置 API Key、模型和本地配置文件"
 ---
 
 # Codex桌面版安装
 
 Codex Desktop 是 OpenAI 推出的桌面端 AI 编程工具，适合用图形界面管理代码任务、查看修改结果，并在本地项目中运行 AI Agent。
 
-本页介绍如何安装 Codex Desktop，并接入 [MomoAPI](https://docs.momoapi.top) 的 API Key。
+本页适合第一次安装 Codex 桌面版的新手。你只需要完成三件事：安装软件、准备 MomoAPI Token、把 `auth.json` 和 `config.toml` 放到正确位置。
 
 ## 一、安装 Codex Desktop
 
@@ -17,7 +17,7 @@ Codex Desktop 是 OpenAI 推出的桌面端 AI 编程工具，适合用图形界
 2. 点击「获取」或「下载」。
 3. 按提示完成安装。
 
-如果商店下载不方便，也可以使用站内快速开始页提供的安装包入口，[点击下载](https://momoapi.oss-cn-hongkong.aliyuncs.com/tools/Codex%20Installer.exe)
+如果 Microsoft Store 下载不方便，也可以使用站内安装包入口：[点击下载](https://momoapi.oss-cn-hongkong.aliyuncs.com/tools/Codex%20Installer.exe)
 
 ### macOS
 
@@ -28,20 +28,22 @@ Codex Desktop 是 OpenAI 推出的桌面端 AI 编程工具，适合用图形界
 ## 二、切换中文界面
 
 1. 打开 Codex Desktop。
-2. 点击 `File` -\> `Settings`。
+2. 点击左上角 `File` -\> `Settings`。
 3. 进入 `General`。
 4. 在 `Language for the app UI` 中选择 `Chinese (China)`。
 5. 如果没有立即生效，请保持网络畅通并重启 Codex Desktop。
 
 ## 三、获取 MomoAPI Token
 
-1. 打开 [MomoAPI 文档](https://docs.momoapi.top)，点击页面右上角「控制台」。
+1. 打开 [MomoAPI 控制台](https://momoapi.top/console)。
 2. 登录后进入「令牌管理」页面。
 3. 创建或复制一个可用于 Codex 的 API Key，格式通常以 `sk-` 开头。
 
 <Warning>
-  API Key 只在创建时完整显示一次，请立即保存，不要公开分享，也不要提交到代码仓库。
+  API Key 只在创建时完整显示一次，请立即保存。不要公开分享，也不要提交到代码仓库。
 </Warning>
+
+如果你已经通过命令行配置过 Codex，并且 Codex Desktop 能正常使用，可以先不重复配置。
 
 ## 四、创建 Codex 配置目录
 
@@ -59,15 +61,25 @@ Codex Desktop 会读取用户目录下的 `.codex` 配置。
 - `auth.json`
 - `config.toml`
 
+macOS 用户也可以在终端执行：
+
+```bash
+mkdir -p ~/.codex
+touch ~/.codex/auth.json
+touch ~/.codex/config.toml
+```
+
 ## 五、编辑 auth.json
 
 将以下内容写入 `auth.json`，把 `sk-xxx` 替换为你的 MomoAPI Token：
 
 ```json
-{
-  "OPENAI_API_KEY": "sk-xxx"
-}
+{"OPENAI_API_KEY":"sk-xxx"}
 ```
+
+<Warning>
+  注意注意注意：`auth.json` 里只保留上面这一行内容。如果文件里还有其它字段、注释或旧配置，请全部删除，否则很容易出现 401 鉴权错误。
+</Warning>
 
 ## 六、编辑 config.toml
 
@@ -75,7 +87,7 @@ Codex Desktop 会读取用户目录下的 `.codex` 配置。
 
 ```toml
 model_provider = "Momoapi"
-model = "gpt-5.4"
+model = "gpt-5.3-codex"
 model_reasoning_effort = "high"
 network_access = "enabled"
 disable_response_storage = true
@@ -89,36 +101,67 @@ wire_api = "responses"
 requires_openai_auth = true
 ```
 
-配置说明：
+<Warning>
+  注意注意注意：上面这些内容一定要放在 `config.toml` 文件最上面，一定要放在最上面，一定要放在最上面。不要把它粘到旧配置下面，否则 Codex 可能读取不到供应商配置并直接报错。
+</Warning>
 
-| 字段 | 说明 |
+### 配置项说明
+
+| 配置项 | 说明 |
 | --- | --- |
 | `model_provider` | 当前供应商名称，需要与 `[model_providers.Momoapi]` 保持一致 |
 | `model` | 默认模型，请按 MomoAPI 控制台实际可用模型调整 |
-| `base_url` | Codex 使用 OpenAI 兼容接口，必须使用 `https://momoapi.top/v1` |
+| `model_reasoning_effort` | 推理强度，常用 `high`、`medium`、`low` |
+| `network_access` | 允许 Codex 在任务中访问网络 |
+| `preferred_auth_method` | 使用 API Key 鉴权时填写 `apikey` |
+| `base_url` | MomoAPI 的 OpenAI 兼容接口地址：`https://momoapi.top/v1` |
 | `wire_api` | Codex 请求协议，建议使用 `responses` |
-| `requires_openai_auth` | 使用 `OPENAI_API_KEY` 做鉴权 |
 
-## 七、启动并验证
+### 切换模型
+
+如果想使用最新的 `gpt-5.4`，把这一行：
+
+```toml
+model = "gpt-5.3-codex"
+```
+
+改成：
+
+```toml
+model = "gpt-5.4"
+```
+
+保存后完全退出 Codex Desktop，再重新打开。
+
+## 七、可选：在客户端指定配置路径
+
+正常情况下，Codex Desktop 会自动读取用户目录下的 `.codex/config.toml`。如果配置后没有生效，可以在 Codex Desktop 设置中手动指定配置文件路径。
+
+| 系统 | 配置文件路径 |
+| --- | --- |
+| Windows | `C:\Users\<你的用户名>\.codex\config.toml` |
+| macOS | `/Users/<你的用户名>/.codex/config.toml` |
+
+## 八、启动并验证
 
 1. 完全退出 Codex Desktop。
 2. 重新打开 Codex Desktop。
 3. 选择一个本地项目，输入一句简单测试，例如 `hello`。
 4. 如果能正常回复，说明配置成功。
 
-如果 Codex Desktop 没有读取到配置，可以在设置中手动指定 `config.toml` 路径，或确认当前用户目录是否正确。
-
-## 八、常见问题
+## 九、常见问题
 
 ### 请求失败或模型不可用
 
 请检查：
 
 1. `auth.json` 是否位于 `.codex` 目录。
-2. `config.toml` 是否位于同一个 `.codex` 目录。
-3. `base_url` 是否为 `https://momoapi.top/v1`。
-4. API Key 是否属于 Codex 可用分组。
-5. `model` 是否为 MomoAPI 控制台实际支持的模型。
+2. `auth.json` 是否只保留 `OPENAI_API_KEY` 这一项。
+3. `config.toml` 是否位于同一个 `.codex` 目录。
+4. `config.toml` 的 MomoAPI 配置是否放在文件最顶部。
+5. `base_url` 是否为 `https://momoapi.top/v1`。
+6. API Key 是否属于 Codex 可用分组。
+7. `model` 是否为 MomoAPI 控制台实际支持的模型。
 
 ### 中文界面没有生效
 
@@ -126,4 +169,4 @@ requires_openai_auth = true
 
 ### 配置修改后仍然走旧渠道
 
-请完全退出 Codex Desktop 后重新打开，必要时检查是否同时存在多个 `.codex` 目录或多个配置文件。
+请完全退出 Codex Desktop 后重新打开。必要时检查是否同时存在多个 `.codex` 目录或多个配置文件。

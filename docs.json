@@ -53,7 +53,8 @@
             "pages": [
               "cli-config/env-check",
               "cli-config/claude-code",
-              "cli-config/codex"
+              "cli-config/codex",
+              "cli-config/gemini-cli"
             ]
           },
           {
