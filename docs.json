@@ -70,8 +70,16 @@
             "pages": [
               "account/register",
               "account/login",
-              "account/password",
-              "troubleshooting"
+              "account/password"
+            ]
+          },
+          {
+            "group": "常见问题排查",
+            "pages": [
+              "faq/claude-code",
+              "faq/codex",
+              "faq/gemini",
+              "faq/general"
             ]
           },
           {

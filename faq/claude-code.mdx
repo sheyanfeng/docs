@@ -1,0 +1,48 @@
+---
+title: "claude-code"
+---
+
+### Claude Code 无法连接到 Anthropic 服务
+
+**症状**：运行 `claude` 后提示需要登录、无法连接，或请求一直失败。
+
+按顺序检查：
+
+1. 确认 `~/.claude/settings.json` 配置正确。
+
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://momoapi.top",
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-momo-token",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0"
+  }
+}
+```
+
+2. 确认配置文件路径正确。
+
+| 系统 | 路径 |
+| --- | --- |
+| macOS / Linux | `~/.claude/settings.json` |
+| Windows | `%userprofile%\.claude\settings.json` |
+
+3. 确认令牌有效，可在 [令牌管理](https://momoapi.top/console/token) 页面检查令牌状态。
+
+### 提示 "Your organization does not have access"
+
+通常是 `ANTHROPIC_BASE_URL` 没有正确生效。重点检查：
+
+- `settings.json` 字段名是否拼写正确。
+- URL 是否为 `https://momoapi.top`，Claude Code 不需要 `/v1` 后缀。
+- 修改配置后是否重新打开终端。
+
+### 响应速度慢
+
+- 检查当前网络连接是否稳定。
+- 不同模型响应速度不同，较大的模型响应更慢属于正常现象。
+- 如果持续异常，可打开 [Momo API 控制台](https://momoapi.top) 检查服务状态或切换模型重试。
+
+### 额度不足
+
+API 调用时如果余额不足，会返回额度相关错误。请前往 [充值页面](https://momoapi.top/console/topup) 充值后重试。
