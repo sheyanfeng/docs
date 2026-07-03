@@ -1,0 +1,72 @@
+---
+title: "chatbox"
+---
+
+Chatbox 是一款跨平台 AI 聊天客户端，支持 Windows、macOS、Linux、iOS 和 Android。通过配置 Momo API，您可以在手机和电脑上随时使用 AI 对话。
+
+### 下载安装
+
+访问 Chatbox 官网下载适合您平台的版本：
+
+🌐 **官网**：[https://chatboxai.app](https://chatboxai.app)
+
+支持平台：
+
+- 📱 **iOS**：App Store 下载
+- 📱 **Android**：Google Play 或官网 APK
+- 💻 **Windows / macOS / Linux**：官网下载
+
+### 配置方法
+
+1. 打开 Chatbox，点击左下角的 **设置** 图标。
+2. 选择 **AI 模型设置**。
+3. 选择 **OpenAI API** 作为提供商。
+4. 填入以下配置：
+
+| 配置项 | 值 |
+| --- | --- |
+| API Host | `https://momoapi.top` |
+| API Key | `sk-your-momo-token`（[获取令牌](/getting-token)） |
+| 模型 | 选择或手动输入模型名称 |
+
+5. 点击保存，开始对话。
+
+### 推荐模型
+
+以下为目前支持的最新模型：
+
+**Claude 系列**
+
+| 模型 | 适合场景 |
+| --- | --- |
+| `claude-sonnet-4-6` | 日常对话、写作、分析（性价比首选） |
+| `claude-opus-4-7` | 复杂推理、长篇创作（旗舰能力） |
+
+**Codex / OpenAI 系列**
+
+| 模型 | 适合场景 |
+| --- | --- |
+| `gpt-5.5` | 通用智能助手、编程辅助 |
+| `gpt-image-2` | 图像生成（OpenAI 最新模型，需特殊配置 ⚠️） |
+
+**Gemini 系列**
+
+| 模型 | 适合场景 |
+| --- | --- |
+| `gemini-3.1-pro-preview` | 长文本、代码分析、多模态理解 |
+| `gemini-3-pro-image-preview` | 图像生成（Nano Banana Pro） |
+
+### gpt-image-2 需特殊配置
+
+`gpt-image-2` 不走 chat 接口，必须在 Chatbox 中创建「自定义提供商」，将 **API 路径** 手动改为 `/v1/images/generations`，并把超时时间设为 ≥ 360 秒。详见 [GPT-Image-2 教程](/models/media)。
+
+### 使用技巧
+
+- **多模型切换**：Chatbox 支持配置多个模型，随时切换。
+- **对话导出**：可以导出聊天记录为 Markdown。
+- **Prompt 模板**：可自定义 System Prompt 来定制 AI 行为。
+- **跨设备同步**：iOS/Android 版本支持 iCloud / 本地备份。
+
+### 移动端推荐
+
+Chatbox 是目前最方便的手机端 AI 客户端之一，特别适合不需要编程的普通用户在手机上使用 Momo API 服务。

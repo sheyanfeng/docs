@@ -73,6 +73,12 @@
               "account/password",
               "troubleshooting"
             ]
+          },
+          {
+            "group": "进阶玩法",
+            "pages": [
+              "advanced/chatbox"
+            ]
           }
         ]
       }
