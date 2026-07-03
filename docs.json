@@ -87,6 +87,13 @@
             "pages": [
               "advanced/chatbox"
             ]
+          },
+          {
+            "group": "条款与政策",
+            "pages": [
+              "terms/user-agreement",
+              "terms/privacy-policy"
+            ]
           }
         ]
       }
