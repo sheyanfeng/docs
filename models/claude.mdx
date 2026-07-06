@@ -1,68 +1,93 @@
 ---
-title: "Claude 系列模型"
-description: "Anthropic Claude Opus 系列模型的使用说明"
+title: "Claude系列模型"
+description: "Claude Fable 5、Opus 4.8、Sonnet 5、Haiku 4.5 的使用说明"
 ---
 
-> ## Documentation Index
->
-> Fetch the complete documentation index at: [https://docs.momoapi.top/llms.txt](https://docs.momoapi.top/llms.txt) Use this file to discover all available pages before exploring further.
+# Claude系列模型
 
-# Claude 系列模型
+> 本页按 Anthropic 当前公开模型能力整理。实际可调用模型和计费以 Momoapi 控制台为准。
 
-> Anthropic Claude Opus 系列模型的使用说明
+Claude 系列适合长上下文分析、复杂代码、企业级知识工作和多轮代理任务。新一代 Claude 模型重点强化了长周期代理、代码执行、工具调用、视觉理解和更稳定的指令遵循。
 
-Momoapi 已上架 Anthropic Claude 的 **Opus 旗舰系列**。Opus 是 Claude 综合能力最强的型号,擅长长上下文、深度推理和复杂代码。
+## 推荐模型
 
-## 已上架模型
+| 模型 | 定位 | 适合场景 |
+| --- | --- | --- |
+| `claude-fable-5` | 最新最高能力 | 长周期代理、复杂研究、跨文件代码任务、最重质量优先任务 |
+| `claude-opus-4-8` | Opus 旗舰 | 复杂 agentic coding、企业级工作流、长文档分析、精细写作 |
+| `claude-sonnet-5` | 智能与速度平衡 | 日常开发、数据分析、内容生成、企业自动化、成本敏感的复杂任务 |
+| `claude-haiku-4-5` | 快速经济 | 原型验证、高频调用、低延迟任务、批量处理、子任务代理 |
+| `claude-opus-4-7` | 兼容旧版 Opus | 旧项目兼容、固定版本回放 |
+| `claude-opus-4-6` | 兼容旧版 Opus | 旧项目兼容、历史工作流 |
 
-| 模型 | 定位 |
-| --- | --- |
-| `claude-opus-4-8` | **最新旗舰** |
-| `claude-opus-4-7` | Opus 系列 |
-| `claude-opus-4-6` | Opus 系列 |
+<Note>
+  如果新项目没有历史兼容要求，优先从 `claude-fable-5`、`claude-opus-4-8` 或 `claude-sonnet-5` 开始测试；只有需要固定旧行为时再选择 4-7 / 4-6。
+</Note>
 
-> 日常使用建议选最新的 `claude-opus-4-8`。三个版本都是 Opus 旗舰级,数字越大越新。
+## 新模型亮点
 
-## Opus 系列定位
+### `claude-fable-5`
 
-Opus 是 Claude 的**顶级系列**,综合能力最强,尤其擅长:
+Fable 5 是 Anthropic 当前公开资料中能力最高的广泛发布模型，适合长时间、多步骤、强代理式任务。
 
-- **超长上下文**:支持数十万 token 的上下文窗口,适合长文档分析、大型代码库
-- **代码能力强**:在代码生成、调试上表现优异
-- **写作质量高**:文笔自然,适合内容创作、文档撰写
-- **指令遵循好**:严格按要求输出,适合结构化任务
+- 默认 1M token 上下文，适合大型代码库、长合同、长论文和多文件资料包
+- 支持最高 128k 输出，适合长报告、完整重构方案和批量生成
+- 自适应思考常开，模型会按任务复杂度分配推理强度
+- 适合需要最高质量的代理、研究、代码和专业知识工作
 
-作为旗舰系列,Opus 质量最高,适合对效果要求高的场景。
+### `claude-opus-4-8`
 
-## 版本怎么选?
+Opus 4.8 面向复杂 agentic coding 和企业工作流，是 Opus 系列当前主力旗舰。
 
-三个上架的版本都是 Opus 旗舰,能力接近:
+- 适合多小时编码代理、大规模重构、复杂系统设计和高要求知识工作
+- 支持 1M token 上下文和 128k 输出
+- 指令遵循、工具调用、长会话协作和不确定性提示更稳定
+- 可通过 effort 参数调节能力、延迟和成本；代码/高自主任务建议测试 `xhigh`
 
-| 版本 | 建议 |
-| --- | --- |
-| `claude-opus-4-8` | **首选**,最新版本,能力与稳定性最佳 |
-| `claude-opus-4-7` | 次新,可作备选 |
-| `claude-opus-4-6` | 较早版本 |
+### `claude-sonnet-5`
 
-如果是新项目或重要任务,直接用 `claude-opus-4-8`。如果某些场景对特定旧版本有兼容需求,再用 4-7 / 4-6。
+Sonnet 5 是速度、质量和成本更平衡的选择，适合大多数生产任务。
+
+- 面向编码、代理、企业工作流和内容生成
+- 支持 1M token 上下文和 128k 输出
+- 相比 Opus 更适合高频生产调用
+- 适合从 `claude-opus-4-8` 向更低成本方案优化时做 A/B 测试
+
+### `claude-haiku-4-5`
+
+Haiku 4.5 是低延迟、低成本路线，适合先跑通流程和高并发任务。
+
+- 适合快速问答、分类、摘要、批量清洗、简单代码解释
+- 支持 200k token 上下文和 64k 输出
+- 可作为复杂代理里的子任务模型，降低整体成本
+
+## 怎么选
+
+| 使用目标 | 推荐模型 | 原因 |
+| --- | --- | --- |
+| 最高能力、长周期代理 | `claude-fable-5` | 当前最高能力，适合长期复杂任务 |
+| 企业级复杂编码 | `claude-opus-4-8` | 复杂代码、工具调用和长上下文更稳 |
+| 大多数生产场景 | `claude-sonnet-5` | 质量、速度、成本平衡 |
+| 高频、低延迟、低成本 | `claude-haiku-4-5` | 响应快、成本低，适合批处理 |
+| 旧项目兼容 | `claude-opus-4-7` / `claude-opus-4-6` | 固定旧行为，减少迁移风险 |
 
 ## 调用示例
 
-### 基础对话(OpenAI 兼容格式)
+### OpenAI 兼容格式
 
 ```bash
 curl https://momoapi.top/v1/chat/completions \
   -H "Authorization: Bearer sk-你的Token" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "claude-opus-4-8",
-    "messages": [{"role": "user", "content": "帮我写一封礼貌的请假邮件"}],
-    "max_tokens": 1024,
+    "model": "claude-fable-5",
+    "messages": [{"role": "user", "content": "分析这个项目的架构风险，并给出重构建议"}],
+    "max_tokens": 4096,
     "stream": false
   }'
 ```
 
-### Anthropic 原生格式(Messages API)
+### Anthropic 原生格式
 
 ```bash
 curl https://momoapi.top/v1/messages \
@@ -70,48 +95,25 @@ curl https://momoapi.top/v1/messages \
   -H "Content-Type: application/json" \
   -d '{
     "model": "claude-opus-4-8",
-    "max_tokens": 1024,
-    "messages": [{"role": "user", "content": "解释什么是闭包"}]
+    "max_tokens": 4096,
+    "messages": [{"role": "user", "content": "帮我审查这段代码的并发问题"}]
   }'
 ```
 
 <Note>
-  Momoapi 同时支持 **OpenAI 兼容格式**(`/v1/chat/completions`)和 **Anthropic 原生格式**(`/v1/messages`)。Claude Code 等原生客户端会自动用后者。
+  Momoapi 同时支持 OpenAI 兼容格式(`/v1/chat/completions`)和 Anthropic 原生格式(`/v1/messages`)。Claude Code 等原生客户端通常使用 Anthropic 原生格式。
 </Note>
 
-### 用 Anthropic SDK 调用
+## Claude Code 用户
 
-```python
-import anthropic
-
-client = anthropic.Anthropic(
-    api_key="sk-你的Token",
-    base_url="https://momoapi.top"
-)
-
-message = client.messages.create(
-    model="claude-opus-4-8",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "你好"}]
-)
-print(message.content[0].text)
-```
-
-## 给 Claude Code 用户
-
-Claude Code 原生使用 Anthropic 协议,配置时需要:
+Claude Code 原生使用 Anthropic 协议，配置时需要：
 
 - `ANTHROPIC_BASE_URL`: `https://momoapi.top`
 - `ANTHROPIC_AUTH_TOKEN`: 你的 Token
 
-详细配置见 [Claude Code 配置](/cli-config/claude-code)。
+详细配置见 [Claude Code CLI配置使用教程](/cli-config/claude-code)。
 
-## 选型建议
+## 资料依据
 
-| 场景 | 推荐 |
-| --- | --- |
-| 任何 Opus 场景(首选) | `claude-opus-4-8` |
-| 长文档分析 | `claude-opus-4-8` |
-| 编程写代码 | `claude-opus-4-8` |
-
-> 如果以上模型不能满足需求,可联系管理员反馈,我们会评估上架更多型号。
+- [Anthropic Models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
+- [Anthropic Choosing the right model](https://platform.claude.com/docs/en/about-claude/models/choosing-a-model)
