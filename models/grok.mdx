@@ -1,6 +1,6 @@
 ---
 title: "Grok 系列模型"
-description: "xAI Grok 系列模型的使用说明与选型指南"
+description: "xAI Grok 图片与视频生成模型的使用说明与选型指南"
 ---
 
 > ## Documentation Index
@@ -9,90 +9,145 @@ description: "xAI Grok 系列模型的使用说明与选型指南"
 
 # Grok 系列模型
 
-> xAI Grok 系列模型的使用说明与选型指南
+> xAI Grok 图片与视频生成模型的使用说明与选型指南
 
-Grok 是 xAI 推出的主流大模型系列。Momoapi 已上架 Grok 的核心文本模型与图片/视频生成模型。
+Grok 是 xAI 推出的多模态生成模型系列。Momoapi 当前已上架 Grok 图片与视频生成模型,模型名以前缀区分不同上游与版本,调用时需要完整填写模型 ID。
 
 ## 已上架模型
 
-| 模型 | 类型 | 定位 |
-| --- | --- | --- |
-| `grok-3-mini-fast` | 文本 | 极速省钱 |
-| `grok-3-mini` | 文本 | 轻量平衡 |
-| `grok-4.3` | 文本 | **当前旗舰** |
-| `grok-build-0.1` | 文本 | 工具/Agent 向 |
-| `grok-imagine-image` | 图片 | 标准文生图 |
-| `grok-imagine-image-quality` | 图片 | 高清文生图 |
-| `grok-imagine-video` | 视频 | 文生视频 |
+| 模型 | 类型 | 定位 | 计费 |
+| --- | --- | --- | --- |
+| `ls-/grok-4.2-image` | 图片 | 新版高质量图片生成 | \$0.192 / 次 |
+| `ls-/grok-4.1-image` | 图片 | 稳定图片生成 | \$0.160 / 次 |
+| `dy-/grok-video-3` | 视频 | Grok Video 3 标准版 | \$0.520 / 次 |
+| `dy-/grok-video-3-10s` | 视频 | Grok Video 3,10 秒版本 | \$0.520 / 次 |
+| `dy-/grok-video-3-15s` | 视频 | Grok Video 3,15 秒版本 | \$0.520 / 次 |
+| `dy-/grok-1.5-video-6s` | 视频 | Grok 1.5,6 秒视频 | \$0.520 / 次 |
+| `dy-/grok-1.5-video-10s` | 视频 | Grok 1.5,10 秒视频 | \$0.520 / 次 |
+| `dy-/grok-1.5-video-15s` | 视频 | Grok 1.5,15 秒视频 | \$0.520 / 次 |
+| `ls-/grok-video-3` | 视频 | Grok Video 3 高质量线路 | \$0.800 / 次 |
 
-> 图片和视频模型的使用见 [媒体生成](/models/media)。
+<Note>
+  本页价格为控制台展示的模型价格,按次计费。实际扣费还会乘以你所在分组的折扣倍率,最终以 Momoapi 控制台显示为准。
+</Note>
 
-## 文本模型详解
+## 图片模型详解
 
-### `grok-3-mini-fast` ⚡
+### `ls-/grok-4.2-image`
 
-Grok-3 系列最快最便宜的版本,响应速度极快。
+Grok 4.2 图片生成模型,适合需要更高画面质量、细节稳定性和成片质感的任务。
 
-- **适合**:简单问答、高频调用、实时聊天、对延迟敏感的场景
-- **不适合**:复杂推理、长文生成
+- **适合**:海报、封面、产品图、角色概念图、需要更细节的创意图片
+- **计费**:按次计费,每次 \$0.192
 
-### `grok-3-mini` ⚖️
+### `ls-/grok-4.1-image`
 
-Grok-3 的精简标准版,在速度和质量间取平衡。
+Grok 4.1 图片生成模型,成本更低,适合常规文生图与批量试图。
 
-- **适合**:日常对话、客服、一般任务
-- **不适合**:高难度任务
+- **适合**:日常配图、草图验证、批量生成、成本敏感的图片任务
+- **计费**:按次计费,每次 \$0.160
 
-### `grok-4.3` 👑
+## 视频模型详解
 
-**Grok 当前最强模型**,xAI 旗舰。综合能力最强,推理、编码、多模态俱佳,对标 GPT-5 / Claude Opus。
+### `dy-/grok-video-3`
 
-- **适合**:复杂任务、重要决策、代码、分析、需要最佳质量
-- **缺点**:贵、较慢
+Grok Video 3 标准视频模型,适合通用文生视频场景。没有明确固定时长需求时,优先使用该模型。
 
-### `grok-build-0.1` 🔧
+- **适合**:通用短视频、动态镜头、产品展示、社媒素材
+- **计费**:按次计费,每次 \$0.520
 
-专为 **agentic 和 function calling(工具调用)** 优化的模型,擅长理解工具、执行步骤、多轮规划。
+### `dy-/grok-video-3-10s` / `dy-/grok-video-3-15s`
 
-- **适合**:AI 助手、自动化工作流、调用 API/工具的场景、Cursor/Claude Code 类应用
+Grok Video 3 的固定时长版本,模型名中已经标明目标时长。需要 10 秒或 15 秒成片时,优先选择对应模型。
+
+- **适合**:固定时长广告片、口播转场、短视频片段
+- **计费**:按次计费,每次 \$0.520
+
+### `dy-/grok-1.5-video-6s` / `dy-/grok-1.5-video-10s` / `dy-/grok-1.5-video-15s`
+
+Grok 1.5 视频系列,按 6 秒、10 秒、15 秒拆分成不同模型。适合按固定时长快速出片。
+
+- **适合**:短镜头测试、批量视频素材、固定时长创意片段
+- **计费**:按次计费,每次 \$0.520
+
+### `ls-/grok-video-3`
+
+Grok Video 3 高质量线路,价格更高,适合对画面稳定性和最终效果要求更高的视频任务。
+
+- **适合**:重要成片、商业素材、需要更高质量的视频生成
+- **计费**:按次计费,每次 \$0.800
 
 ## 调用示例
 
-### 基础对话
+### 图片生成
 
 ```bash
-curl https://momoapi.top/v1/chat/completions \
+curl https://momoapi.top/v1/images/generations \
   -H "Authorization: Bearer sk-你的Token" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "grok-4.3",
-    "messages": [{"role": "user", "content": "用三句话介绍一下量子计算"}],
-    "stream": false
+    "model": "ls-/grok-4.2-image",
+    "prompt": "A futuristic sports car parked on a neon city street, cinematic lighting",
+    "n": 1,
+    "response_format": "url"
   }'
 ```
 
-### 用 OpenAI SDK 调用
+### 视频生成
 
-```python
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="sk-你的Token",
-    base_url="https://momoapi.top/v1"
-)
-
-response = client.chat.completions.create(
-    model="grok-3-mini-fast",
-    messages=[{"role": "user", "content": "你好"}]
-)
-print(response.choices[0].message.content)
+```bash
+curl -X POST https://momoapi.top/v1/video/generations \
+  -H "Authorization: Bearer sk-你的Token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "dy-/grok-video-3-10s",
+    "prompt": "A golden retriever running across a beach at sunset, handheld cinematic shot"
+  }'
 ```
+
+返回任务信息后,记录 `task_id`,再轮询任务状态直到生成完成。
+
+```bash
+curl https://momoapi.top/v1/video/generations/{task_id} \
+  -H "Authorization: Bearer sk-你的Token"
+```
+
+<Warning>
+  图片和视频结果链接通常是临时链接,生成完成后请尽快下载保存。
+</Warning>
+
+## 参数建议
+
+| 参数 | 类型 | 是否必填 | 说明 |
+| --- | --- | --- | --- |
+| `model` | string | 是 | 填写完整模型名,例如 `ls-/grok-4.2-image` 或 `dy-/grok-video-3-10s` |
+| `prompt` | string | 是 | 描述要生成的画面。图片写清主体、风格、构图、光线;视频写清动作、镜头、运镜、氛围 |
+| `n` | int | 否 | 图片生成数量。每张单独计费,视频不支持批量 |
+| `response_format` | string | 否 | 图片可返回 `url` 或 `b64_json`,默认推荐 `url` |
 
 ## 选型建议
 
 | 场景 | 推荐 |
 | --- | --- |
-| 最快最省钱 | `grok-3-mini-fast` |
-| 日常平衡 | `grok-3-mini` |
-| 最高质量 / 复杂任务 | `grok-4.3` |
-| 做 AI Agent / 工具调用 | `grok-build-0.1` |
+| 图片质量优先 | `ls-/grok-4.2-image` |
+| 图片成本优先 | `ls-/grok-4.1-image` |
+| 通用视频生成 | `dy-/grok-video-3` |
+| 10 秒视频 | `dy-/grok-video-3-10s` 或 `dy-/grok-1.5-video-10s` |
+| 15 秒视频 | `dy-/grok-video-3-15s` 或 `dy-/grok-1.5-video-15s` |
+| 高质量视频线路 | `ls-/grok-video-3` |
+
+## 常见问题
+
+<Accordion>
+  <AccordionItem title="模型名前面的 dy-/ 和 ls-/ 要保留吗?">
+  要保留。`dy-/` 和 `ls-/` 是模型 ID 的一部分,调用接口时需要完整填写,否则可能找不到对应模型。
+</AccordionItem>
+
+  <AccordionItem title="视频模型还需要传 seconds 吗?">
+  固定时长模型已经在模型名中标明 6s、10s 或 15s,通常直接选择对应模型即可。具体可用参数以控制台和接口返回为准。
+</AccordionItem>
+
+  <AccordionItem title="怎么估算费用?">
+  本页模型均按次计费。费用 = 单次价格 × 调用次数 × 你所在分组的折扣倍率,最终以控制台账单为准。
+</AccordionItem>
+</Accordion>
