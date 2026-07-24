@@ -18,13 +18,29 @@
             "pages": [
               "index",
               "getting-started",
-              "getting-token"
+              "why-choose-us",
+              "getting-token",
+              "support"
             ]
           },
           {
             "group": "AI 工具教程",
             "pages": [
               "ai-tools/claude-codex-guide"
+            ],
+            "hidden": true
+          },
+          {
+            "group": "如何在 Codex（ChatGPT Work）进行图片生成",
+            "pages": [
+              "ai-tools/codex-image-generation"
+            ]
+          },
+          {
+            "group": "桌面端安装",
+            "pages": [
+              "desktop-install/codex",
+              "desktop-install/claude"
             ]
           },
           {
@@ -43,7 +59,8 @@
             "pages": [
               "cli-config/env-check",
               "cli-config/claude-code",
-              "cli-config/codex"
+              "cli-config/codex",
+              "cli-config/gemini-cli"
             ]
           },
           {
@@ -61,6 +78,28 @@
               "account/login",
               "account/password"
             ]
+          },
+          {
+            "group": "常见问题排查",
+            "pages": [
+              "faq/claude-code",
+              "faq/codex",
+              "faq/gemini",
+              "faq/general"
+            ]
+          },
+          {
+            "group": "进阶玩法",
+            "pages": [
+              "advanced/chatbox"
+            ]
+          },
+          {
+            "group": "条款与政策",
+            "pages": [
+              "terms/user-agreement",
+              "terms/privacy-policy"
+            ]
           }
         ]
       }
@@ -71,7 +110,7 @@
     "primary": {
       "type": "button",
       "label": "控制台",
-      "href": "https://momoapi.top/dashboard/overview"
+      "href": "https://momoapi.top/console"
     }
   },
   "contextual": {

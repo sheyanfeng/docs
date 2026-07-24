@@ -1,3 +1,105 @@
 ---
-title: "Ai Tools/codex Image Generation"
+title: "在 Codex（ChatGPT Work）中生成图片"
+description: "使用 codex-image2 Skill 连接充值站或订阅站，在 Codex 桌面版中生成图片。"
 ---
+
+# 在 Codex（ChatGPT Work）中生成图片
+
+按照你使用的站点完成一套配置即可。首次配置完成后，就可以直接在 Codex 中调用 `codex-image2` 生成图片。
+
+<Note>
+  密钥只应保存在本机环境变量中。不要将真实密钥粘贴到聊天、文档、截图或代码仓库。
+</Note>
+
+## 选择你的站点
+
+- **充值站**：新建用于图片生成的密钥，使用 `gpt-image4k` 分组。
+- **订阅站**：使用此前开通订阅时获得的订阅密钥，例如“codexplus（50 刀周卡）订阅”的密钥。
+
+## 充值站
+
+### 第 1 步：安装图片生成 Skill
+
+向 Codex 发送以下内容：
+
+```text
+https://github.com/fengfengzhidao/codex-image2-skill
+帮我安装这个 skills
+```
+
+### 第 2 步：创建图片生成密钥
+
+进入 [MomoAPI 控制台](https://momoapi.top/console)，创建密钥时选择 `gpt-image4k` 分组，然后复制该密钥备用。
+
+### 第 3 步：让 Codex 设置环境变量
+
+向 Codex 发送以下内容，并将“你的密钥”替换成刚刚创建的密钥：
+
+```text
+帮我设置以下环境变量：
+CODEX_API_URL="https://gw.momoapi.top/v1"
+CODEX_API_KEY="你的密钥"
+```
+
+### 第 4 步：完全退出并重新打开 Codex
+
+在 Codex 左上角选择 **File \> Exit**，确认 Codex 已退出后再重新启动。
+
+<Warning>
+  每次更换充值站渠道或更换密钥后，都需要再次执行 **File \> Exit** 并重新打开 Codex，新的环境变量才会生效。
+</Warning>
+
+### 第 5 步：生成第一张图片
+
+在 Codex 中输入：
+
+```text
+/codex-image2 生成一只猫
+```
+
+## 订阅站
+
+### 第 1 步：安装图片生成 Skill
+
+向 Codex 发送以下内容：
+
+```text
+https://github.com/fengfengzhidao/codex-image2-skill
+帮我安装这个 skills
+```
+
+### 第 2 步：获取订阅密钥
+
+使用此前生成的订阅密钥，例如“codexplus（50 刀周卡）订阅”对应的密钥。
+
+### 第 3 步：让 Codex 设置环境变量
+
+向 Codex 发送以下内容，并将“你的密钥”替换成订阅密钥：
+
+```text
+帮我设置以下环境变量：
+CODEX_API_URL="https://subgw.momoapi.top/v1"
+CODEX_API_KEY="你的密钥"
+```
+
+### 第 4 步：完全退出并重新打开 Codex
+
+在 Codex 左上角选择 **File \> Exit**，确认 Codex 已退出后再重新启动。
+
+<Warning>
+  每次切换订阅渠道或更换密钥后，都需要完全退出并重新打开 Codex；仅关闭窗口不会刷新环境变量。
+</Warning>
+
+### 第 5 步：生成第一张图片
+
+在 Codex 中输入：
+
+```text
+/codex-image2 生成一只猫
+```
+
+## 配置检查
+
+- 充值站必须搭配 `https://gw.momoapi.top/v1` 与充值站图片生成密钥。
+- 订阅站必须搭配 `https://subgw.momoapi.top/v1` 与对应订阅密钥。
+- 配置修改后先执行 **File \> Exit**，再重新启动 Codex 后测试生成。
